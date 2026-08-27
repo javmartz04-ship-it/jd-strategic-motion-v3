@@ -151,14 +151,105 @@ section{position:relative}
 .sec{padding:110px 0}
 
 /* ============================================================
-   HERO — white gallery. The story starts with him.
+   HERO — white gallery, split: the words left, the MATCH ENGINE
+   right (orbits + beams, all his real content). Magic UI
+   orbiting-circles + animated-beam, re-skinned to brand.
    ============================================================ */
-.hero{padding:168px 0 0;position:relative;background:var(--canvas)}
+.hero{padding:170px 0 96px;position:relative;background:var(--canvas);overflow:hidden}
 .hero::before{
   content:"";position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(90% 60% at 50% -10%,var(--sky-soft) 0%,rgba(234,241,248,0) 62%);
+  background:radial-gradient(80% 70% at 78% 20%,var(--sky-soft) 0%,rgba(234,241,248,0) 60%);
 }
-.hero-head{position:relative;text-align:center;max-width:900px;margin:0 auto}
+.hero-grid{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
+.hero-head{position:relative;text-align:left;max-width:620px}
+.hero-head h1{margin-top:26px;font-size:clamp(34px,3.45vw,50px)}
+.hero-head .hero-lead{margin:24px 0 0}
+.hero-head .hero-cta-row{justify-content:flex-start;margin-top:32px}
+
+/* ---------- the match engine ---------- */
+.engine{position:relative;height:640px;user-select:none}
+.eng-orbits{position:absolute;left:44%;top:50%;width:0;height:0}
+.orbit-path{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  border:1px dashed rgba(10,29,58,.12);border-radius:50%;pointer-events:none;
+}
+.orbit-item{
+  position:absolute;left:0;top:0;display:flex;align-items:center;justify-content:center;
+  transform:rotate(calc(var(--angle)*1deg)) translateY(calc(var(--radius)*-1px)) rotate(calc(var(--angle)*-1deg));
+  animation:orbit calc(var(--dur)*1s) linear infinite;
+  will-change:transform;
+}
+.orbit-item.rev{animation-direction:reverse}
+@keyframes orbit{
+  0%{transform:rotate(calc(var(--angle)*1deg)) translateY(calc(var(--radius)*-1px)) rotate(calc(var(--angle)*-1deg))}
+  100%{transform:rotate(calc(var(--angle)*1deg + 360deg)) translateY(calc(var(--radius)*-1px)) rotate(calc(var(--angle)*-1deg - 360deg))}
+}
+.cat-chip{
+  display:inline-flex;align-items:center;gap:8px;white-space:nowrap;
+  font-family:var(--fm);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--slate);background:#fff;border:1px solid var(--hairline);
+  border-radius:999px;padding:8px 14px;
+  box-shadow:0 10px 26px -14px rgba(10,29,58,.28),inset 0 1px 0 rgba(255,255,255,.8);
+}
+.cat-chip .sq{width:6px;height:6px;background:var(--orange);flex:none}
+.ep-orb{
+  width:44px;height:44px;border-radius:50%;overflow:hidden;background:#fff;
+  border:2px solid #fff;outline:1px solid var(--hairline);
+  box-shadow:0 12px 26px -12px rgba(10,29,58,.35);
+}
+.ep-orb img{width:100%;height:100%;object-fit:cover}
+.eng-center{
+  position:absolute;left:44%;top:50%;transform:translate(-50%,-50%);z-index:5;
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+}
+.josh-node{
+  position:relative;width:104px;height:104px;border-radius:50%;padding:6px;background:#fff;
+  border:1px solid var(--hairline);
+  box-shadow:0 26px 60px -22px rgba(10,29,58,.4),inset 0 1px 0 rgba(255,255,255,.9);
+}
+.josh-node img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.josh-node .status{
+  position:absolute;right:6px;bottom:6px;width:16px;height:16px;border-radius:50%;
+  background:var(--orange);border:3px solid #fff;
+}
+.josh-tag{
+  font-family:var(--fm);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--slate);background:#fff;border:1px solid var(--hairline);border-radius:8px;
+  padding:7px 12px;white-space:nowrap;
+  box-shadow:0 10px 24px -14px rgba(10,29,58,.25);
+}
+.eng-you{
+  position:absolute;left:2%;top:50%;transform:translateY(-50%);z-index:5;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  animation:bob 4.5s ease-in-out infinite alternate;
+}
+.you-node{
+  width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:var(--navy);color:#fff;font-family:var(--fm);font-size:11px;font-weight:600;letter-spacing:.1em;
+  box-shadow:0 16px 36px -14px rgba(10,29,58,.5),inset 0 1px 0 rgba(255,255,255,.16);
+}
+.eng-result{
+  position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:5;
+  width:164px;border-radius:16px;padding:6px;background:rgba(10,29,58,.035);
+  border:1px solid rgba(10,29,58,.06);
+  animation:bob 5.2s ease-in-out .8s infinite alternate;
+}
+@keyframes bob{from{margin-top:-5px}to{margin-top:5px}}
+.eng-result-core{
+  border-radius:11px;background:#fff;border:1px solid rgba(10,29,58,.05);
+  box-shadow:0 18px 40px -22px rgba(10,29,58,.3),inset 0 1px 0 rgba(255,255,255,.9);
+  padding:16px 16px 15px;position:relative;overflow:hidden;
+}
+.eng-result-core::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:linear-gradient(90deg,#FF8A3D,var(--orange))}
+.eng-result .er-num{font-family:var(--fm);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ink);line-height:1}
+.eng-result .er-num .sfx{color:var(--orange)}
+.eng-result .er-label{font-family:var(--fm);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:8px;line-height:1.7}
+.eng-beams{position:absolute;inset:0;pointer-events:none;z-index:1}
+.eng-fade{position:absolute;inset:0;pointer-events:none;z-index:6;
+  background:linear-gradient(90deg,var(--canvas) 0%,transparent 12%,transparent 88%,var(--canvas) 100%);
+  opacity:0;
+}
+.hero-old-head-center{text-align:center;max-width:900px;margin:0 auto}
 .coach-chip{
   display:inline-flex;align-items:center;gap:11px;
   padding:8px 18px 8px 9px;border-radius:999px;
@@ -193,29 +284,7 @@ h1{
 .hero-lead strong{color:var(--ink);font-weight:600}
 .hero-cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;justify-content:center;align-items:center}
 
-/* ---------- the cinematic frame: his film, expanding as you scroll ---------- */
-.stage{position:relative;margin-top:84px}
-.stage-pin{height:100vh;height:100dvh;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.hframe{
-  position:relative;width:min(1180px,calc(100% - 64px));aspect-ratio:16/9;
-  border-radius:26px;padding:10px;
-  background:linear-gradient(180deg,#0E2547,var(--navy-deep));
-  box-shadow:0 60px 140px -50px rgba(10,29,58,.55), inset 0 1px 0 rgba(255,255,255,.14);
-  will-change:transform;
-}
-.beam-ring{position:absolute;inset:0;border-radius:26px;pointer-events:none;padding:1.5px;
-  background:conic-gradient(from var(--beam-angle,0deg),transparent 0 78%,rgba(255,138,61,.05) 84%,var(--orange) 92%,rgba(255,138,61,.05) 97%,transparent 100%);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
-}
-@property --beam-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
-@keyframes beamspin{to{--beam-angle:360deg}}
-.beam-ring{animation:beamspin 7s linear infinite}
-.hframe-core{
-  position:absolute;inset:10px;border-radius:17px;overflow:hidden;
-  background:#0B1B33;cursor:pointer;
-}
-.hframe-core iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* ---------- contained poster player (media section) ---------- */
 .vposter{position:absolute;inset:0;transition:opacity .5s var(--ease-out)}
 .vposter img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85}
 .vposter::after{
@@ -236,7 +305,7 @@ h1{
   box-shadow:0 24px 60px -18px rgba(0,0,0,.7);
   transition:transform .35s var(--ease-out),background .35s var(--ease-out);
 }
-.hframe-core:hover .vplay{transform:translate(-50%,-50%) scale(1.09);background:rgba(255,106,0,.9)}
+.vid-core:hover .vplay{transform:translate(-50%,-50%) scale(1.09);background:rgba(255,106,0,.9)}
 .vmeta{
   position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px 28px;
   display:flex;align-items:flex-end;justify-content:space-between;gap:16px;
@@ -609,9 +678,11 @@ footer{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden;
   .mobile-menu.open a:nth-child(6){transition-delay:.36s}
   .mobile-menu .mm-cta{font-size:18px;color:var(--orange)}
   .hero{padding-top:140px}
-  .stage{margin-top:56px}
-  .hframe{width:calc(100% - 32px);padding:7px}
-  .hframe-core{inset:7px}
+  .hero{padding:140px 0 60px}
+  .hero-grid{grid-template-columns:1fr;gap:8px}
+  .hero-head{text-align:center;margin:0 auto}
+  .hero-head .hero-cta-row{justify-content:center}
+  .engine{height:440px;transform:scale(.72);transform-origin:top center;margin-top:-16px}
   .cell-a,.cell-b,.cell-c,.cell-d{grid-column:span 12}
   .fit-cols{grid-template-columns:1fr}
   .legacy-beats{grid-template-columns:1fr}
@@ -632,7 +703,8 @@ footer{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden;
   .statement .w{color:var(--ink)}
   .statement .w.acc{background:linear-gradient(100deg,#FF8A3D,var(--orange) 55%,var(--orange-deep));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
   .tm-track,.ep-track{animation:none}
-  .beam-ring{animation:none}
+  .orbit-item{animation:none}
+  .eng-you,.eng-result{animation:none}
   .shiny{animation:none;background:none;color:var(--slate)}
 }
 </style>
@@ -678,9 +750,9 @@ footer{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden;
 
 <!-- ================= HERO ================= -->
 <header class="hero" id="top">
-  <div class="wrap">
+  <div class="wrap hero-grid">
     <div class="hero-head">
-      <span class="coach-chip rv-boot">
+      <span class="coach-chip">
         <img src="assets/josh-avatar.jpg" alt="Josh DuBois">
         <span class="shiny">Franchise Coaching, Free To Clients</span>
       </span>
@@ -697,23 +769,62 @@ footer{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden;
       </div>
       <p class="risk">Free consultation · No obligation</p>
     </div>
-  </div>
 
-  <!-- his film, in a frame that takes the screen -->
-  <div class="stage" id="stage">
-    <div class="stage-pin" id="stagePin">
-      <div class="hframe" id="hframe">
-        <div class="beam-ring" aria-hidden="true"></div>
-        <div class="hframe-core" id="heroPlayer" role="button" tabindex="0" aria-label="Play: The Truth About Franchising">
-          <div class="vposter" id="heroPoster">
-            <img src="assets/feature-poster.jpg" alt="Josh DuBois presenting The Truth About Franchising">
-            <div class="vp-brand"><span class="sq"></span>JD Strategic · Start Here</div>
-            <span class="vplay" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 26 26" fill="none"><path d="M8 5l13 8-13 8V5z" fill="#fff"/></svg></span>
-            <div class="vmeta">
-              <div><div class="vm-t">The Truth About Franchising</div><div class="vm-s">Watch, 2 minutes</div></div>
-              <span class="vbadge">His Story, In His Words</span>
-            </div>
-          </div>
+    <!-- the match engine: you -> Josh -> your shortlist -->
+    <div class="engine" id="engine" aria-label="How JD Strategic works: hundreds of vetted brands, filtered through Josh, into your shortlist">
+      <svg class="eng-beams" viewBox="0 0 600 640" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="beamL" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="0">
+            <stop offset="0" stop-color="#FF6A00" stop-opacity="0"/>
+            <stop offset=".5" stop-color="#FF6A00"/>
+            <stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
+            <animate attributeName="x1" values="-140;620" dur="3.4s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="0;760" dur="3.4s" repeatCount="indefinite"/>
+          </linearGradient>
+          <linearGradient id="beamR" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="0">
+            <stop offset="0" stop-color="#FF6A00" stop-opacity="0"/>
+            <stop offset=".5" stop-color="#FF6A00"/>
+            <stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
+            <animate attributeName="x1" values="-140;620" dur="3.4s" begin="1.7s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="0;760" dur="3.4s" begin="1.7s" repeatCount="indefinite"/>
+          </linearGradient>
+        </defs>
+        <path d="M46 320 C 130 320 160 320 206 320" fill="none" stroke="rgba(10,29,58,.12)" stroke-width="1.5"/>
+        <path d="M322 320 C 400 320 440 320 505 320" fill="none" stroke="rgba(10,29,58,.12)" stroke-width="1.5"/>
+        <path d="M46 320 C 130 320 160 320 206 320" fill="none" stroke="url(#beamL)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M322 320 C 400 320 440 320 505 320" fill="none" stroke="url(#beamR)" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+
+      <div class="eng-orbits" aria-hidden="true">
+        <span class="orbit-path" style="width:236px;height:236px"></span>
+        <span class="orbit-path" style="width:396px;height:396px"></span>
+
+        <span class="orbit-item" style="--angle:0; --radius:118; --dur:34"><span class="cat-chip"><span class="sq"></span>Home Services</span></span>
+        <span class="orbit-item" style="--angle:90; --radius:118; --dur:34"><span class="cat-chip"><span class="sq"></span>Senior Care</span></span>
+        <span class="orbit-item" style="--angle:180; --radius:118; --dur:34"><span class="cat-chip"><span class="sq"></span>Fitness</span></span>
+        <span class="orbit-item" style="--angle:270; --radius:118; --dur:34"><span class="cat-chip"><span class="sq"></span>Food &amp; Café</span></span>
+
+        <span class="orbit-item rev" style="--angle:15; --radius:198; --dur:56"><span class="ep-orb"><img src="assets/eps/jEWU5pLuM4k.jpg" alt=""></span></span>
+        <span class="orbit-item rev" style="--angle:75; --radius:198; --dur:56"><span class="ep-orb"><img src="assets/eps/Lm9cs_krnO0.jpg" alt=""></span></span>
+        <span class="orbit-item rev" style="--angle:135; --radius:198; --dur:56"><span class="cat-chip"><span class="sq"></span>FranServe Certified</span></span>
+        <span class="orbit-item rev" style="--angle:195; --radius:198; --dur:56"><span class="ep-orb"><img src="assets/eps/U6BDmYj-0DU.jpg" alt=""></span></span>
+        <span class="orbit-item rev" style="--angle:255; --radius:198; --dur:56"><span class="ep-orb"><img src="assets/eps/UHMxMc6sjkk.jpg" alt=""></span></span>
+        <span class="orbit-item rev" style="--angle:315; --radius:198; --dur:56"><span class="cat-chip"><span class="sq"></span>2,400+ Locations</span></span>
+      </div>
+
+      <div class="eng-you">
+        <span class="you-node">YOU</span>
+      </div>
+
+      <div class="eng-center">
+        <span class="josh-node"><img src="assets/josh-avatar.jpg" alt="Josh DuBois"><span class="status" aria-hidden="true"></span></span>
+        <span class="josh-tag">Josh DuBois · Your Coach</span>
+      </div>
+
+      <div class="eng-result">
+        <div class="eng-result-core">
+          <div class="er-num">3<span class="sfx">–</span>5</div>
+          <div class="er-label">Vetted matches, built around you</div>
         </div>
       </div>
     </div>
@@ -877,28 +988,32 @@ footer{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden;
     <h2 class="h2 rv" style="max-width:620px">Learn the industry before you buy into it.</h2>
     <p class="sec-intro rv rv-d1">Josh's show, Conquer the Mind: conversations with franchise veterans, operators, and founders. Free and unfiltered.</p>
     <div class="media-grid">
-      <div class="vid-shell rv"><div class="vid-core" id="vidCore" role="button" tabindex="0" aria-label="Play: Franchise Hall of Famer">
+      <div class="vid-shell rv"><div class="vid-core" id="vidCore" role="button" tabindex="0" aria-label="Play: The Truth About Franchising">
         <div class="vposter" id="vidPoster">
-          <img id="vidPosterImg" src="https://i.ytimg.com/vi/kL8k2ocyCs0/maxresdefault.jpg" alt="Video still from Conquer the Mind">
-          <div class="vp-brand"><span class="sq"></span>Conquer The Mind</div>
+          <img id="vidPosterImg" src="assets/feature-poster.jpg" alt="Josh DuBois presenting The Truth About Franchising">
+          <div class="vp-brand"><span class="sq"></span>JD Strategic · Start Here</div>
           <span class="vplay" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M8 5l13 8-13 8V5z" fill="#fff"/></svg></span>
           <div class="vmeta">
-            <div><div class="vm-t" id="vidTitle">Franchise Hall of Famer: How to Thrive as a Franchisee</div><div class="vm-s" id="vidSub">Conquer the Mind #41</div></div>
-            <span class="vbadge">The Podcast</span>
+            <div><div class="vm-t" id="vidTitle">The Truth About Franchising</div><div class="vm-s" id="vidSub">Watch, 2 minutes</div></div>
+            <span class="vbadge">His Story, In His Words</span>
           </div>
         </div>
       </div></div>
       <div class="pod-rail" id="podRail">
-        <button class="pod-item active" data-vid="kL8k2ocyCs0" data-title="Franchise Hall of Famer: How to Thrive as a Franchisee" data-sub="Conquer the Mind #41">
+        <button class="pod-item active" data-vid="BkyUMlJbdp0" data-title="The Truth About Franchising" data-sub="Watch, 2 minutes">
           <span class="pi-n">01</span>
+          <span><span class="pi-t">The Truth About Franchising</span><br><span class="pi-s">Start Here</span></span>
+        </button>
+        <button class="pod-item" data-vid="kL8k2ocyCs0" data-title="Franchise Hall of Famer: How to Thrive as a Franchisee" data-sub="Conquer the Mind #41">
+          <span class="pi-n">02</span>
           <span><span class="pi-t">Franchise Hall of Famer: How to Thrive as a Franchisee</span><br><span class="pi-s">Conquer the Mind #41</span></span>
         </button>
         <button class="pod-item" data-vid="qEMVsL7In-k" data-title="Hidden Gap to Generational Wealth" data-sub="Conquer the Mind #42">
-          <span class="pi-n">02</span>
+          <span class="pi-n">03</span>
           <span><span class="pi-t">Hidden Gap to Generational Wealth</span><br><span class="pi-s">Conquer the Mind #42</span></span>
         </button>
         <button class="pod-item" data-vid="jEWU5pLuM4k" data-title="JD's Franchise Journey" data-sub="Conquer the Mind">
-          <span class="pi-n">03</span>
+          <span class="pi-n">04</span>
           <span><span class="pi-t">JD's Franchise Journey</span><br><span class="pi-s">Conquer the Mind</span></span>
         </button>
       </div>
@@ -1096,7 +1211,7 @@ if (!prefersReduced && typeof Lenis !== 'undefined' && JUMP === null){
 }
 gsap.registerPlugin(ScrollTrigger);
 
-/* ---------- hero entrance ---------- */
+/* ---------- hero entrance: words, then the engine assembles ---------- */
 if (!prefersReduced){
   gsap.timeline({ defaults:{ ease:'power4.out' } })
     .from('.coach-chip', { y:20, opacity:0, duration:.8 }, .1)
@@ -1104,19 +1219,12 @@ if (!prefersReduced){
     .from('.hero-lead', { y:26, opacity:0, duration:.9 }, .65)
     .from('.hero-cta-row', { y:24, opacity:0, duration:.9 }, .8)
     .from('.hero-head .risk', { opacity:0, duration:.8 }, 1.0)
-    .from('#hframe', { y:90, opacity:0, scale:.96, duration:1.3, ease:'power3.out' }, .55);
-}
-
-/* ============================================================
-   PINNED: the frame takes the screen (created FIRST)
-   ============================================================ */
-if (!prefersReduced){
-  gsap.timeline({
-    scrollTrigger: { trigger:'#stagePin', start:'top 18%', end:'+=70%', scrub:true, pin:true }
-  })
-  .fromTo('#hframe',
-    { scale:1, borderRadius:'26px' },
-    { scale:1.13, borderRadius:'12px', ease:'none', immediateRender:false }, 0);
+    .from('.eng-center', { scale:.6, opacity:0, duration:1, ease:'back.out(1.8)' }, .45)
+    .from('.eng-orbits', { scale:.55, opacity:0, duration:1.2, ease:'power3.out' }, .6)
+    .from('.orbit-item', { opacity:0, duration:.6, stagger:.05 }, .8)
+    .from('.eng-you', { x:-30, opacity:0, duration:.8 }, 1.0)
+    .from('.eng-result', { x:30, opacity:0, duration:.8 }, 1.1)
+    .from('.eng-beams', { opacity:0, duration:1 }, 1.2);
 }
 
 /* ============================================================
@@ -1266,16 +1374,8 @@ function makePlayer(coreId, posterId){
   return { core: core, play: play, reset: reset, playing: function(){ return !!iframeEl; } };
 }
 
-var heroP = makePlayer('heroPlayer','heroPoster');
-document.getElementById('heroPlayer').addEventListener('click', function(){
-  if (!heroP.playing()) heroP.play('BkyUMlJbdp0','The Truth About Franchising');
-});
-document.getElementById('heroPlayer').addEventListener('keydown', function(e){
-  if ((e.key === 'Enter' || e.key === ' ') && !heroP.playing()){ e.preventDefault(); heroP.play('BkyUMlJbdp0','The Truth About Franchising'); }
-});
-
 var mediaP = makePlayer('vidCore','vidPoster');
-var currentVid = 'kL8k2ocyCs0';
+var currentVid = 'BkyUMlJbdp0';
 document.getElementById('vidCore').addEventListener('click', function(){
   if (!mediaP.playing()) mediaP.play(currentVid, document.getElementById('vidTitle').textContent);
 });
