@@ -166,9 +166,103 @@ section{position:relative}
 .hero-head .hero-lead{margin:24px 0 0}
 .hero-head .hero-cta-row{justify-content:flex-start;margin-top:32px}
 
-/* ---------- the match engine ---------- */
-.engine{position:relative;height:640px;user-select:none}
-.eng-orbits{position:absolute;left:44%;top:50%;width:0;height:0}
+/* ============================================================
+   THE MATCH ENGINE v2 — dense and layered. He stands in it.
+   Live feed of vetted opportunities streams beams into Josh;
+   his episodes orbit behind him; results stack out the right.
+   ============================================================ */
+.engine{position:relative;height:700px;user-select:none}
+.engine::before{ /* faint dot-grid ground */
+  content:"";position:absolute;inset:-40px;pointer-events:none;
+  background-image:radial-gradient(rgba(10,29,58,.15) 1px,transparent 1.2px);
+  background-size:26px 26px;
+  -webkit-mask-image:radial-gradient(72% 64% at 55% 46%,#000 30%,transparent 78%);
+  mask-image:radial-gradient(72% 64% at 55% 46%,#000 30%,transparent 78%);
+}
+.josh-stand{
+  position:absolute;left:55%;bottom:30px;transform:translateX(-50%);z-index:4;
+  height:min(500px,76%);aspect-ratio:546/626;
+}
+.josh-stand::before{
+  content:"";position:absolute;left:50%;top:56%;transform:translate(-50%,-50%);
+  width:150%;aspect-ratio:1;border-radius:50%;
+  background:radial-gradient(50% 50% at 50% 50%,var(--sky-soft) 0%,rgba(234,241,248,.4) 55%,transparent 72%);
+}
+.josh-stand img{
+  position:relative;width:100%;height:100%;object-fit:contain;object-position:bottom;
+  filter:drop-shadow(0 34px 44px rgba(10,29,58,.3)) saturate(.97);
+  -webkit-mask-image:linear-gradient(180deg,#000 88%,transparent 100%);
+  mask-image:linear-gradient(180deg,#000 88%,transparent 100%);
+}
+.josh-tag2{
+  position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);z-index:6;
+  display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border:1px solid var(--hairline);border-radius:999px;padding:10px 17px;
+  box-shadow:0 14px 32px -16px rgba(10,29,58,.35);
+}
+.josh-tag2 .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex:none;animation:pulse 2.2s var(--ease-out) infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,106,0,.45)}70%{box-shadow:0 0 0 9px rgba(255,106,0,0)}100%{box-shadow:0 0 0 0 rgba(255,106,0,0)}}
+
+/* live feed (Magic UI animated-list behavior) */
+.in-feed{position:absolute;left:0;top:50%;transform:translateY(-55%);z-index:5;width:216px}
+.if-head{
+  display:flex;align-items:center;gap:9px;
+  font-family:var(--fm);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:12px;padding-left:2px;
+}
+.if-head .dot{width:7px;height:7px;border-radius:50%;background:var(--orange);animation:pulse 2.2s var(--ease-out) infinite}
+.feed-slots{display:flex;flex-direction:column;gap:10px}
+.feed-card{
+  display:flex;align-items:center;gap:11px;
+  background:#fff;border:1px solid var(--hairline);border-radius:13px;padding:11px 13px;
+  box-shadow:0 14px 30px -18px rgba(10,29,58,.3),inset 0 1px 0 rgba(255,255,255,.85);
+}
+.feed-card .fc-ic{
+  width:34px;height:34px;border-radius:9px;flex:none;overflow:hidden;
+  background:var(--sky-soft);display:flex;align-items:center;justify-content:center;
+  font-family:var(--fm);font-weight:700;font-size:13px;color:var(--slate);
+}
+.feed-card .fc-t{font-size:12.5px;font-weight:600;color:var(--ink);line-height:1.25;font-family:var(--fb)}
+.feed-card .fc-s{font-family:var(--fm);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-top:3px}
+.feed-card.enter{animation:feedIn .7s var(--ease-out)}
+@keyframes feedIn{from{opacity:0;transform:translateY(-16px) scale(.94)}to{opacity:1;transform:none}}
+
+/* results stack */
+.res-stack{position:absolute;right:0;top:50%;transform:translateY(-44%);z-index:5;width:190px;display:flex;flex-direction:column;gap:14px;align-items:stretch}
+.res-card{
+  position:relative;border-radius:16px;padding:6px;background:rgba(10,29,58,.035);
+  border:1px solid rgba(10,29,58,.06);
+  animation:bob 5.2s ease-in-out infinite alternate;
+}
+.res-card:nth-child(2){animation-delay:1.1s;animation-duration:4.4s}
+.res-core{
+  position:relative;border-radius:11px;background:#fff;border:1px solid rgba(10,29,58,.05);
+  box-shadow:0 18px 40px -22px rgba(10,29,58,.3),inset 0 1px 0 rgba(255,255,255,.9);
+  padding:16px;overflow:hidden;
+}
+.res-core::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:linear-gradient(90deg,#FF8A3D,var(--orange))}
+.res-num{font-family:var(--fm);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+.res-num .sfx{color:var(--orange)}
+.res-label{font-family:var(--fm);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:8px;line-height:1.7}
+.shine{position:absolute;inset:0;border-radius:16px;pointer-events:none;padding:1.5px;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,106,0,.85) 48%,#FFB27A 52%,rgba(255,106,0,.85) 56%,transparent 74%);
+  background-size:260% 100%;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  animation:shine-sweep 3.6s var(--ease-io) infinite;
+}
+@keyframes shine-sweep{0%{background-position:130% 0}55%,100%{background-position:-130% 0}}
+.free-chip{
+  align-self:flex-end;display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--fm);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:#fff;
+  background:var(--navy);border-radius:999px;padding:9px 15px;
+  box-shadow:0 14px 30px -14px rgba(10,29,58,.5),inset 0 1px 0 rgba(255,255,255,.16);
+  animation:bob 4.2s ease-in-out .6s infinite alternate;
+}
+.free-chip .sq{width:6px;height:6px;background:var(--orange)}
+.eng-orbits{position:absolute;left:55%;top:44%;width:0;height:0;z-index:2}
 .orbit-path{
   position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
   border:1px dashed rgba(10,29,58,.12);border-radius:50%;pointer-events:none;
@@ -198,53 +292,8 @@ section{position:relative}
   box-shadow:0 12px 26px -12px rgba(10,29,58,.35);
 }
 .ep-orb img{width:100%;height:100%;object-fit:cover}
-.eng-center{
-  position:absolute;left:44%;top:50%;transform:translate(-50%,-50%);z-index:5;
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-}
-.josh-node{
-  position:relative;width:104px;height:104px;border-radius:50%;padding:6px;background:#fff;
-  border:1px solid var(--hairline);
-  box-shadow:0 26px 60px -22px rgba(10,29,58,.4),inset 0 1px 0 rgba(255,255,255,.9);
-}
-.josh-node img{width:100%;height:100%;border-radius:50%;object-fit:cover}
-.josh-node .status{
-  position:absolute;right:6px;bottom:6px;width:16px;height:16px;border-radius:50%;
-  background:var(--orange);border:3px solid #fff;
-}
-.josh-tag{
-  font-family:var(--fm);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--slate);background:#fff;border:1px solid var(--hairline);border-radius:8px;
-  padding:7px 12px;white-space:nowrap;
-  box-shadow:0 10px 24px -14px rgba(10,29,58,.25);
-}
-.eng-you{
-  position:absolute;left:2%;top:50%;transform:translateY(-50%);z-index:5;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-  animation:bob 4.5s ease-in-out infinite alternate;
-}
-.you-node{
-  width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:var(--navy);color:#fff;font-family:var(--fm);font-size:11px;font-weight:600;letter-spacing:.1em;
-  box-shadow:0 16px 36px -14px rgba(10,29,58,.5),inset 0 1px 0 rgba(255,255,255,.16);
-}
-.eng-result{
-  position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:5;
-  width:164px;border-radius:16px;padding:6px;background:rgba(10,29,58,.035);
-  border:1px solid rgba(10,29,58,.06);
-  animation:bob 5.2s ease-in-out .8s infinite alternate;
-}
 @keyframes bob{from{margin-top:-5px}to{margin-top:5px}}
-.eng-result-core{
-  border-radius:11px;background:#fff;border:1px solid rgba(10,29,58,.05);
-  box-shadow:0 18px 40px -22px rgba(10,29,58,.3),inset 0 1px 0 rgba(255,255,255,.9);
-  padding:16px 16px 15px;position:relative;overflow:hidden;
-}
-.eng-result-core::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:linear-gradient(90deg,#FF8A3D,var(--orange))}
-.eng-result .er-num{font-family:var(--fm);font-weight:700;font-size:30px;letter-spacing:-.02em;color:var(--ink);line-height:1}
-.eng-result .er-num .sfx{color:var(--orange)}
-.eng-result .er-label{font-family:var(--fm);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:8px;line-height:1.7}
-.eng-beams{position:absolute;inset:0;pointer-events:none;z-index:1}
+.eng-beams{position:absolute;inset:0;pointer-events:none;z-index:3}
 .eng-fade{position:absolute;inset:0;pointer-events:none;z-index:6;
   background:linear-gradient(90deg,var(--canvas) 0%,transparent 12%,transparent 88%,var(--canvas) 100%);
   opacity:0;
@@ -682,7 +731,9 @@ footer{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden;
   .hero-grid{grid-template-columns:1fr;gap:8px}
   .hero-head{text-align:center;margin:0 auto}
   .hero-head .hero-cta-row{justify-content:center}
-  .engine{height:440px;transform:scale(.72);transform-origin:top center;margin-top:-16px}
+  .engine{height:470px;transform:scale(.66);transform-origin:top center;margin-top:-24px}
+  .in-feed,.res-stack{display:none}
+  .josh-stand{left:50%;height:min(430px,88%)}
   .cell-a,.cell-b,.cell-c,.cell-d{grid-column:span 12}
   .fit-cols{grid-template-columns:1fr}
   .legacy-beats{grid-template-columns:1fr}
@@ -704,7 +755,9 @@ footer{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden;
   .statement .w.acc{background:linear-gradient(100deg,#FF8A3D,var(--orange) 55%,var(--orange-deep));-webkit-background-clip:text;background-clip:text;color:transparent;font-style:italic}
   .tm-track,.ep-track{animation:none}
   .orbit-item{animation:none}
-  .eng-you,.eng-result{animation:none}
+  .res-card,.free-chip,.josh-tag2 .dot,.if-head .dot{animation:none}
+  .shine{display:none}
+  .eng-beams path[stroke^="url"]{display:none}
   .shiny{animation:none;background:none;color:var(--slate)}
 }
 </style>
@@ -770,62 +823,77 @@ footer{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden;
       <p class="risk">Free consultation · No obligation</p>
     </div>
 
-    <!-- the match engine: you -> Josh -> your shortlist -->
-    <div class="engine" id="engine" aria-label="How JD Strategic works: hundreds of vetted brands, filtered through Josh, into your shortlist">
-      <svg class="eng-beams" viewBox="0 0 600 640" preserveAspectRatio="none" aria-hidden="true">
+    <!-- the match engine: a live feed of vetted opportunities streams into Josh; results stack out the right -->
+    <div class="engine" id="engine" aria-label="How JD Strategic works: hundreds of vetted brands, filtered through Josh, into your shortlist of 3 to 5 matches">
+      <div class="eng-orbits" aria-hidden="true">
+        <span class="orbit-path" style="width:400px;height:400px"></span>
+        <span class="orbit-path" style="width:560px;height:560px"></span>
+        <span class="orbit-item rev" style="--angle:20; --radius:280; --dur:60"><span class="ep-orb"><img src="assets/eps/jEWU5pLuM4k.jpg" alt=""></span></span>
+        <span class="orbit-item rev" style="--angle:80; --radius:280; --dur:60"><span class="ep-orb"><img src="assets/eps/Lm9cs_krnO0.jpg" alt=""></span></span>
+        <span class="orbit-item rev" style="--angle:140; --radius:280; --dur:60"><span class="cat-chip"><span class="sq"></span>FranServe Certified</span></span>
+        <span class="orbit-item rev" style="--angle:200; --radius:280; --dur:60"><span class="ep-orb"><img src="assets/eps/U6BDmYj-0DU.jpg" alt=""></span></span>
+        <span class="orbit-item rev" style="--angle:260; --radius:280; --dur:60"><span class="ep-orb"><img src="assets/eps/UHMxMc6sjkk.jpg" alt=""></span></span>
+        <span class="orbit-item rev" style="--angle:320; --radius:280; --dur:60"><span class="cat-chip"><span class="sq"></span>Second Generation</span></span>
+        <span class="orbit-item" style="--angle:45; --radius:200; --dur:40"><span class="cat-chip"><span class="sq"></span>Senior Care</span></span>
+        <span class="orbit-item" style="--angle:165; --radius:200; --dur:40"><span class="cat-chip"><span class="sq"></span>Home Services</span></span>
+        <span class="orbit-item" style="--angle:285; --radius:200; --dur:40"><span class="cat-chip"><span class="sq"></span>Fitness</span></span>
+      </div>
+
+      <svg class="eng-beams" viewBox="0 0 660 700" preserveAspectRatio="none" aria-hidden="true">
         <defs>
-          <linearGradient id="beamL" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="0">
-            <stop offset="0" stop-color="#FF6A00" stop-opacity="0"/>
-            <stop offset=".5" stop-color="#FF6A00"/>
-            <stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
-            <animate attributeName="x1" values="-140;620" dur="3.4s" repeatCount="indefinite"/>
-            <animate attributeName="x2" values="0;760" dur="3.4s" repeatCount="indefinite"/>
+          <linearGradient id="beamA" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="0">
+            <stop offset="0" stop-color="#FF6A00" stop-opacity="0"/><stop offset=".5" stop-color="#FF6A00"/><stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
+            <animate attributeName="x1" values="-160;700" dur="3.2s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="0;860" dur="3.2s" repeatCount="indefinite"/>
           </linearGradient>
-          <linearGradient id="beamR" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="0">
-            <stop offset="0" stop-color="#FF6A00" stop-opacity="0"/>
-            <stop offset=".5" stop-color="#FF6A00"/>
-            <stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
-            <animate attributeName="x1" values="-140;620" dur="3.4s" begin="1.7s" repeatCount="indefinite"/>
-            <animate attributeName="x2" values="0;760" dur="3.4s" begin="1.7s" repeatCount="indefinite"/>
+          <linearGradient id="beamB" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="0">
+            <stop offset="0" stop-color="#FF6A00" stop-opacity="0"/><stop offset=".5" stop-color="#FF6A00"/><stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
+            <animate attributeName="x1" values="-160;700" dur="3.2s" begin="1.1s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="0;860" dur="3.2s" begin="1.1s" repeatCount="indefinite"/>
+          </linearGradient>
+          <linearGradient id="beamC" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="0">
+            <stop offset="0" stop-color="#FF6A00" stop-opacity="0"/><stop offset=".5" stop-color="#FF6A00"/><stop offset="1" stop-color="#FF8A3D" stop-opacity="0"/>
+            <animate attributeName="x1" values="-160;700" dur="3.2s" begin="2.2s" repeatCount="indefinite"/>
+            <animate attributeName="x2" values="0;860" dur="3.2s" begin="2.2s" repeatCount="indefinite"/>
           </linearGradient>
         </defs>
-        <path d="M46 320 C 130 320 160 320 206 320" fill="none" stroke="rgba(10,29,58,.12)" stroke-width="1.5"/>
-        <path d="M322 320 C 400 320 440 320 505 320" fill="none" stroke="rgba(10,29,58,.12)" stroke-width="1.5"/>
-        <path d="M46 320 C 130 320 160 320 206 320" fill="none" stroke="url(#beamL)" stroke-width="2.5" stroke-linecap="round"/>
-        <path d="M322 320 C 400 320 440 320 505 320" fill="none" stroke="url(#beamR)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M216 268 C 300 268 320 300 356 330" fill="none" stroke="rgba(10,29,58,.12)" stroke-width="1.5"/>
+        <path d="M216 350 C 290 350 310 350 356 350" fill="none" stroke="rgba(10,29,58,.12)" stroke-width="1.5"/>
+        <path d="M216 432 C 300 432 320 400 356 370" fill="none" stroke="rgba(10,29,58,.12)" stroke-width="1.5"/>
+        <path d="M420 330 C 480 320 520 316 590 312" fill="none" stroke="rgba(10,29,58,.12)" stroke-width="1.5"/>
+        <path d="M420 370 C 480 380 520 386 590 392" fill="none" stroke="rgba(10,29,58,.12)" stroke-width="1.5"/>
+        <path d="M216 268 C 300 268 320 300 356 330" fill="none" stroke="url(#beamA)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M216 350 C 290 350 310 350 356 350" fill="none" stroke="url(#beamB)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M216 432 C 300 432 320 400 356 370" fill="none" stroke="url(#beamC)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M420 330 C 480 320 520 316 590 312" fill="none" stroke="url(#beamB)" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M420 370 C 480 380 520 386 590 392" fill="none" stroke="url(#beamC)" stroke-width="2.5" stroke-linecap="round"/>
       </svg>
 
-      <div class="eng-orbits" aria-hidden="true">
-        <span class="orbit-path" style="width:236px;height:236px"></span>
-        <span class="orbit-path" style="width:396px;height:396px"></span>
-
-        <span class="orbit-item" style="--angle:0; --radius:118; --dur:34"><span class="cat-chip"><span class="sq"></span>Home Services</span></span>
-        <span class="orbit-item" style="--angle:90; --radius:118; --dur:34"><span class="cat-chip"><span class="sq"></span>Senior Care</span></span>
-        <span class="orbit-item" style="--angle:180; --radius:118; --dur:34"><span class="cat-chip"><span class="sq"></span>Fitness</span></span>
-        <span class="orbit-item" style="--angle:270; --radius:118; --dur:34"><span class="cat-chip"><span class="sq"></span>Food &amp; Café</span></span>
-
-        <span class="orbit-item rev" style="--angle:15; --radius:198; --dur:56"><span class="ep-orb"><img src="assets/eps/jEWU5pLuM4k.jpg" alt=""></span></span>
-        <span class="orbit-item rev" style="--angle:75; --radius:198; --dur:56"><span class="ep-orb"><img src="assets/eps/Lm9cs_krnO0.jpg" alt=""></span></span>
-        <span class="orbit-item rev" style="--angle:135; --radius:198; --dur:56"><span class="cat-chip"><span class="sq"></span>FranServe Certified</span></span>
-        <span class="orbit-item rev" style="--angle:195; --radius:198; --dur:56"><span class="ep-orb"><img src="assets/eps/U6BDmYj-0DU.jpg" alt=""></span></span>
-        <span class="orbit-item rev" style="--angle:255; --radius:198; --dur:56"><span class="ep-orb"><img src="assets/eps/UHMxMc6sjkk.jpg" alt=""></span></span>
-        <span class="orbit-item rev" style="--angle:315; --radius:198; --dur:56"><span class="cat-chip"><span class="sq"></span>2,400+ Locations</span></span>
+      <div class="in-feed" aria-hidden="true">
+        <div class="if-head"><span class="dot"></span>Live · Vetted Opportunities</div>
+        <div class="feed-slots" id="feedSlots"></div>
       </div>
 
-      <div class="eng-you">
-        <span class="you-node">YOU</span>
+      <div class="josh-stand">
+        <img src="assets/josh-cut.png" alt="Josh DuBois, founder of JD Strategic Franchising">
+        <span class="josh-tag2"><span class="dot"></span>Josh DuBois · Your Franchise Coach</span>
       </div>
 
-      <div class="eng-center">
-        <span class="josh-node"><img src="assets/josh-avatar.jpg" alt="Josh DuBois"><span class="status" aria-hidden="true"></span></span>
-        <span class="josh-tag">Josh DuBois · Your Coach</span>
-      </div>
-
-      <div class="eng-result">
-        <div class="eng-result-core">
-          <div class="er-num">3<span class="sfx">–</span>5</div>
-          <div class="er-label">Vetted matches, built around you</div>
+      <div class="res-stack" aria-hidden="true">
+        <div class="res-card">
+          <div class="res-core">
+            <div class="res-num">3<span class="sfx">–</span>5</div>
+            <div class="res-label">Vetted matches, built around you</div>
+          </div>
+          <span class="shine"></span>
         </div>
+        <div class="res-card">
+          <div class="res-core">
+            <div class="res-num"><span id="resTicker">0</span><span class="sfx">+</span></div>
+            <div class="res-label">Locations in the brand his family helped scale</div>
+          </div>
+        </div>
+        <span class="free-chip"><span class="sq"></span>100% Free To You</span>
       </div>
     </div>
   </div>
@@ -1219,12 +1287,55 @@ if (!prefersReduced){
     .from('.hero-lead', { y:26, opacity:0, duration:.9 }, .65)
     .from('.hero-cta-row', { y:24, opacity:0, duration:.9 }, .8)
     .from('.hero-head .risk', { opacity:0, duration:.8 }, 1.0)
-    .from('.eng-center', { scale:.6, opacity:0, duration:1, ease:'back.out(1.8)' }, .45)
+    .from('.josh-stand', { y:80, opacity:0, duration:1.25, ease:'power3.out' }, .4)
     .from('.eng-orbits', { scale:.55, opacity:0, duration:1.2, ease:'power3.out' }, .6)
-    .from('.orbit-item', { opacity:0, duration:.6, stagger:.05 }, .8)
-    .from('.eng-you', { x:-30, opacity:0, duration:.8 }, 1.0)
-    .from('.eng-result', { x:30, opacity:0, duration:.8 }, 1.1)
-    .from('.eng-beams', { opacity:0, duration:1 }, 1.2);
+    .from('.orbit-item', { opacity:0, duration:.6, stagger:.05 }, .85)
+    .from('.in-feed', { x:-34, opacity:0, duration:.9 }, .95)
+    .from('.res-stack > *', { x:34, opacity:0, duration:.8, stagger:.14 }, 1.05)
+    .from('.eng-beams', { opacity:0, duration:1 }, 1.25)
+    .from('.josh-tag2', { y:14, opacity:0, duration:.7 }, 1.15);
+}
+
+/* ---------- live feed (Magic UI animated-list behavior) + result ticker ---------- */
+(function(){
+  var FEED = [
+    ['HS','Home Services','Vetted · High demand'],
+    ['SC','Senior Care','Vetted · Recession resistant'],
+    ['FT','Fitness & Training','Vetted · Membership model'],
+    ['FC','Food & Café','Vetted · Proven playbook'],
+    ['LM','Laundromats','Vetted · Semi-absentee'],
+    ['CW','Auto & Car Wash','Vetted · Recurring revenue'],
+    ['PC','Pet Care','Vetted · Growing category'],
+    ['CL','Cleaning Services','Vetted · Low overhead']
+  ];
+  var slots = document.getElementById('feedSlots');
+  function cardEl(item, animate){
+    var d = document.createElement('div');
+    d.className = 'feed-card' + (animate ? ' enter' : '');
+    d.innerHTML = '<span class="fc-ic">' + item[0] + '</span><span><span class="fc-t">' + item[1] + '</span><br><span class="fc-s">' + item[2] + '</span></span>';
+    return d;
+  }
+  var idx = 0;
+  for (var k = 3; k >= 0; k--){ slots.appendChild(cardEl(FEED[k], false)); }
+  idx = 4;
+  if (!prefersReduced){
+    setInterval(function(){
+      slots.prepend(cardEl(FEED[idx % FEED.length], true));
+      idx++;
+      while (slots.children.length > 4) slots.removeChild(slots.lastChild);
+    }, 2600);
+  }
+  var rt = document.getElementById('resTicker');
+  if (prefersReduced){ rt.textContent = '2,400'; }
+  else {
+    var obj = { v: 0 };
+    gsap.to(obj, { v: 2400, duration: 2.4, delay: 1.5, ease: 'power4.out',
+      onUpdate: function(){ rt.textContent = Intl.NumberFormat('en-US').format(Math.round(obj.v)); } });
+  }
+})();
+if (false){ /* keep structure */
+  gsap.timeline()
+    .from('.noop', {});
 }
 
 /* ============================================================
