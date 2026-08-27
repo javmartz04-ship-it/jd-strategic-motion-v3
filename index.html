@@ -189,13 +189,31 @@ section{position:relative}
   background:radial-gradient(50% 50% at 50% 50%,var(--sky-soft) 0%,rgba(234,241,248,.4) 55%,transparent 72%);
 }
 .josh-stand img{
-  position:relative;width:100%;height:100%;object-fit:contain;object-position:bottom;
-  filter:drop-shadow(0 34px 44px rgba(10,29,58,.3)) saturate(.97);
-  -webkit-mask-image:linear-gradient(180deg,#000 88%,transparent 100%);
-  mask-image:linear-gradient(180deg,#000 88%,transparent 100%);
+  position:relative;z-index:2;width:100%;height:100%;object-fit:contain;object-position:bottom;
+  filter:drop-shadow(0 30px 40px rgba(10,29,58,.35)) drop-shadow(-4px 0 16px rgba(255,138,61,.18)) saturate(.98);
 }
+.josh-plinth{
+  position:absolute;left:50%;bottom:0;transform:translateX(-50%);z-index:1;
+  width:126%;height:46%;border-radius:12px;
+  background:linear-gradient(175deg,#12294A 0%,var(--navy-deep) 85%);
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 40px 90px -34px rgba(10,29,58,.55),inset 0 1px 0 rgba(255,255,255,.12);
+  overflow:hidden;
+}
+.josh-plinth::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:linear-gradient(90deg,#FF8A3D,var(--orange))}
+.josh-plinth::after{
+  content:"JD";position:absolute;right:14px;bottom:-18px;
+  font-family:var(--fm);font-weight:700;font-size:120px;letter-spacing:-.04em;
+  color:rgba(255,255,255,.055);line-height:1;
+}
+.josh-plinth .pl-line{
+  position:absolute;left:22px;bottom:20px;
+  font-family:var(--fm);font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);line-height:2;
+}
+.josh-plinth .pl-line b{display:block;color:rgba(255,255,255,.9);font-weight:600;font-size:10.5px}
 .josh-tag2{
-  position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);z-index:6;
+  position:absolute;left:50%;bottom:-14px;z-index:3;transform:translateX(-50%);z-index:6;
   display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
   font-family:var(--fm);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
   color:var(--ink);background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
@@ -846,7 +864,10 @@ footer{background:var(--navy-deep);color:#fff;position:relative;overflow:hidden;
       </div>
 
       <div class="josh-stand">
-        <img src="assets/josh-cut.png" alt="Josh DuBois, founder of JD Strategic Franchising">
+        <span class="josh-plinth" aria-hidden="true">
+          <span class="pl-line"><b>JD Strategic</b>Founded on two generations</span>
+        </span>
+        <img src="assets/josh-cut2.png" alt="Josh DuBois, founder of JD Strategic Franchising">
         <span class="josh-tag2"><span class="dot"></span>Josh DuBois · Your Franchise Coach</span>
       </div>
 
